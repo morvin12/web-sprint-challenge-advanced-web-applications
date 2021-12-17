@@ -7,6 +7,23 @@ const Login = () => {
         <ModalContainer>
             <h1>Welcome to Blogger Pro</h1>
             <h2>Please enter your account information.</h2>
+            <form>
+                <FormGroup>
+                    <Label>Username:</Label>
+                    <Input
+                        name= 'username'
+                        id= 'username'
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label>Password:</Label>
+                    <Input
+                        name= 'password'
+                        id= 'password'
+                    />
+                </FormGroup>
+                <Button>Login</Button>
+            </form>
         </ModalContainer>
     </ComponentContainer>);
 }
