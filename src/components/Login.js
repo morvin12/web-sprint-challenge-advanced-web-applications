@@ -1,61 +1,64 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 import axios from 'axios';
 
-// import e from 'express';
-import styled from 'styled-components';
-
-const initialUser = {
+const initialUser ={
     username: "",
     password: ""
 }
 
 const Login = () => {
     const { push } = useHistory();
-    const [error, setError] = useState(false);
     const [user, setUser] = useState(initialUser);
-
+    const [error, setError] = useState(false);
+    
     const handleChange = (e) => {
         setUser({
             ...user,
-            [e.target.name]:e.target.value
-        });
-    }
-    
-    const handleClick = () => {
-        e.preventDefault();
-        axios.post('http://localhost:5000/api/login', user)
-        .then(res => {
-            localStorage.setItem("token", res.data.token);
-            setError(false)
-            push("/view");
-        })
-        .catch(err => {
-            console.error(err.res.data);
-            setError(true);
+            [e.target.name]: e.target.value
         })
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        axios.post(`http://localhost:5000/api/login`, user)
+            .then( response => {
+                localStorage.setItem('token', response.data.token);
+                setError(false);
+                push("/view")
+            })
+            .catch( err => {
+                console.error(err);
+                setError(true);
+            })
+    }
 
     return(<ComponentContainer>
         <ModalContainer>
             <h1>Welcome to Blogger Pro</h1>
             <h2>Please enter your account information.</h2>
-            <form>
-                    <Label>Username:</Label>
-                    <Input
-                        id="username"
-                        name="username"
-                        onChange={handleChange}
-                    />
-                    <Label>Password:</Label>
-                    <Input
-                        id="password"
-                        name="password"
-                        onChange={handleChange}
-                    />
-                <Button onClick={handleClick} id="submit">Login</Button>
+            <form onSubmit={handleSubmit}>
+                <FormGroup>
+                <Label>Username:</Label>
+                <Input 
+                    id="username" 
+                    name="username" 
+                    value={user.username} 
+                    onChange={handleChange} 
+                />
+                </FormGroup>
+                <FormGroup>
+                <Label>Password:</Label>
+                <Input 
+                    id="password" 
+                    name="password" 
+                    value={user.password} 
+                    onChange={handleChange} 
+                />
+                </FormGroup>
                 { error && <p id="error">Wrong Username or Password!</p>}
+                <button id="submit">Login</button>
             </form>
         </ModalContainer>
     </ComponentContainer>);
