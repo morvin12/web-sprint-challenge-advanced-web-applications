@@ -26,9 +26,9 @@ const Login = () => {
         e.preventDefault();
         axios.post('http://localhost:5000/api/login', user)
         .then(res => {
-            localStorage.setItem('token', res.data.token);
+            localStorage.setItem("token", res.data.token);
             setError(false)
-            push('/view');
+            push("/view");
         })
         .catch(err => {
             console.error(err.res.data);

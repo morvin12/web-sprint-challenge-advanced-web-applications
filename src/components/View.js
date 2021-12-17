@@ -12,24 +12,24 @@ const View = (props) => {
 
     const handleDelete = (id) => {
         axiosWithAuth()
-        .delete(`/articles/${id}`)
-        .then(res => {
-            setArticles(res.data);
-        })
-        .catch(err => {
-            console.error(err);
-        })
+            .delete(`/articles/${id}`)
+            .then(res => {
+                setArticles(res.data);
+            })
+            .catch(err => {
+                console.error(err);
+            })
     }
 
     const handleEdit = (article) => {
         axiosWithAuth()
-        .put(`/articles/${article.id}`, article)
-        .then(res => {
-            setArticles(res.data);
-        })
-        .catch(err => {
-            console.error(err);
-        })
+            .put(`/articles/${article.id}`, article)
+            .then(res => {
+                setArticles(res.data);
+            })
+            .catch(err => {
+                console.error(err);
+            })
     }
 
     const handleEditSelect = (id)=> {
@@ -43,12 +43,12 @@ const View = (props) => {
 
     useEffect(() => {
         articleService()
-        .then(articles => {
-            setArticles(articles);
-        })
-        .catch(err => {
-            console.error(err);
-        })
+            .then(articles => {
+                setArticles(articles);
+            })
+            .catch(err => {
+                console.error(err);
+            })
     }, []);
 
     return(<ComponentContainer>

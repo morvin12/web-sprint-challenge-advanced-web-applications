@@ -26,7 +26,7 @@ const App = () => {
           <Redirect to="/"/>
         </Route> 
 
-        <PrivateRoute path="/view" component={View}/>
+        <Route path="/view" component={View}/>
 
         <PrivateRoute path="/logout" component={Logout}/> 
 
