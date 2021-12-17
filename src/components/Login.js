@@ -1,8 +1,38 @@
-import React from 'react';
+import axios from 'axios';
+import e from 'express';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Login = () => {
+    const { push } = useHistory();
+    const [error, setError] = useState('');
+    const [credentials, setCredentials] = useState({
+        username: '',
+        password: ''
+    });
+
+    const handleChange = (e) => {
+        setCredentials({
+            ...credentials,
+            [e.target.name]:e.target.value
+        });
+    }
     
+    const handleClick = () => {
+        e.preventDefault();
+        axios.post('http://localhost:5000/api/login', credentials)
+        .then(res => {
+            localStorage.setItem('token', res.data.token);
+            push('/view');
+        })
+        .catch(err => {
+            console.error(err.res.data);
+            setError('Wrong Username or Password!');
+        })
+    }
+
+
     return(<ComponentContainer>
         <ModalContainer>
             <h1>Welcome to Blogger Pro</h1>
@@ -11,19 +41,22 @@ const Login = () => {
                 <FormGroup>
                     <Label>Username:</Label>
                     <Input
-                        name= 'username'
-                        id= 'username'
+                        name='username'
+                        id='username'
+                        onChange={handleChange}
                     />
                 </FormGroup>
                 <FormGroup>
                     <Label>Password:</Label>
                     <Input
-                        name= 'password'
-                        id= 'password'
+                        name='password'
+                        id='password'
+                        onChange={handleChange}
                     />
                 </FormGroup>
-                <Button>Login</Button>
+                <Button onClick={handleClick} id='submit'>Login</Button>
             </form>
+            <p id='error'>{error}</p>
         </ModalContainer>
     </ComponentContainer>);
 }
