@@ -42,22 +42,18 @@ const Login = () => {
             <h1>Welcome to Blogger Pro</h1>
             <h2>Please enter your account information.</h2>
             <form>
-                <FormGroup>
                     <Label>Username:</Label>
                     <Input
                         id="username"
                         name="username"
                         onChange={handleChange}
                     />
-                </FormGroup>
-                <FormGroup>
                     <Label>Password:</Label>
                     <Input
                         id="password"
                         name="password"
                         onChange={handleChange}
                     />
-                </FormGroup>
                 <Button onClick={handleClick} id="submit">Login</Button>
                 { error && <p id="error">Wrong Username or Password!</p>}
             </form>
