@@ -23,8 +23,8 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post(`http://localhost:5000/api/login`, user)
-            .then( response => {
-                localStorage.setItem('token', response.data.token);
+            .then( res => {
+                localStorage.setItem('token', res.data.token);
                 setError(false);
                 push("/view")
             })
@@ -52,7 +52,8 @@ const Login = () => {
                 <Label>Password:</Label>
                 <Input 
                     id="password" 
-                    name="password" 
+                    name="password"
+                    type="password" 
                     value={user.password} 
                     onChange={handleChange} 
                 />
