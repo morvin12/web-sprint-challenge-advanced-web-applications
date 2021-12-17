@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axiosWithAuth from '../utils/axiosWithAuth';
 
@@ -15,10 +15,9 @@ const View = (props) => {
         .delete(`/articles/${id}`)
         .then(res => {
             setArticles(res.data);
-            setEditing(false);
         })
         .catch(err => {
-            console.error('error', err);
+            console.error(err);
         })
     }
 
@@ -27,7 +26,9 @@ const View = (props) => {
         .put(`/articles/${article.id}`, article)
         .then(res => {
             setArticles(res.data);
-            setEditing(false);
+        })
+        .catch(err => {
+            console.error(err);
         })
     }
 
@@ -39,6 +40,16 @@ const View = (props) => {
     const handleEditCancel = ()=>{
         setEditing(false);
     }
+
+    useEffect(() => {
+        articleService()
+        .then(articles => {
+            setArticles(articles);
+        })
+        .catch(err => {
+            console.error(err);
+        })
+    }, []);
 
     return(<ComponentContainer>
         <HeaderContainer>View Articles</HeaderContainer>

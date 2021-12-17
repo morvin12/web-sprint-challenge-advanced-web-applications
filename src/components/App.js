@@ -1,12 +1,14 @@
 import React from 'react';
-import { Route } from "react-router-dom";
-import styled from 'styled-components';
+import { Route, Redirect } from "react-router-dom";
+import PrivateRoute from './PrivateRoute';
 
 import Header from './Header';
 import BloomHeader from './BloomHeader';
 import Login from './Login';
 import View from './View';
 import Logout from './Logout';
+
+import styled from 'styled-components';
 
 
 const App = () => {
@@ -15,13 +17,19 @@ const App = () => {
       <BloomHeader/>
       <Header/>
       <RouteContainer>
+
         <Route exact path="/">
           <Login/>
         </Route>
+
         <Route path="/login">
-        </Route>  
-        <Route path="/view" component={View}/>
-        <Route path="/logout" component={Logout}/>      
+          <Redirect to="/"/>
+        </Route> 
+
+        <PrivateRoute path="/view" component={View}/>
+
+        <PrivateRoute path="/logout" component={Logout}/> 
+
       </RouteContainer>
     </AppContainer>
   )

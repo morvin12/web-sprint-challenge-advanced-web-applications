@@ -1,34 +1,38 @@
-import axios from 'axios';
-import e from 'express';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+
+// import e from 'express';
 import styled from 'styled-components';
+
+const initialUser = {
+    username: "",
+    password: ""
+}
 
 const Login = () => {
     const { push } = useHistory();
-    const [error, setError] = useState('');
-    const [credentials, setCredentials] = useState({
-        username: '',
-        password: ''
-    });
+    const [error, setError] = useState(false);
+    const [user, setUser] = useState(initialUser);
 
     const handleChange = (e) => {
-        setCredentials({
-            ...credentials,
+        setUser({
+            ...user,
             [e.target.name]:e.target.value
         });
     }
     
     const handleClick = () => {
         e.preventDefault();
-        axios.post('http://localhost:5000/api/login', credentials)
+        axios.post('http://localhost:5000/api/login', user)
         .then(res => {
             localStorage.setItem('token', res.data.token);
+            setError(false)
             push('/view');
         })
         .catch(err => {
             console.error(err.res.data);
-            setError('Wrong Username or Password!');
+            setError(true);
         })
     }
 
@@ -41,22 +45,22 @@ const Login = () => {
                 <FormGroup>
                     <Label>Username:</Label>
                     <Input
-                        name='username'
-                        id='username'
+                        name="username"
+                        id="username"
                         onChange={handleChange}
                     />
                 </FormGroup>
                 <FormGroup>
                     <Label>Password:</Label>
                     <Input
-                        name='password'
-                        id='password'
+                        name="password"
+                        id="password"
                         onChange={handleChange}
                     />
                 </FormGroup>
-                <Button onClick={handleClick} id='submit'>Login</Button>
+                <Button onClick={handleClick} id="submit">Login</Button>
+                { error && <p id="error">Wrong Username or Password!</p>}
             </form>
-            <p id='error'>{error}</p>
         </ModalContainer>
     </ComponentContainer>);
 }
