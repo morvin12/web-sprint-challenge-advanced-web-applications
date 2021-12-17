@@ -4,8 +4,8 @@ import PrivateRoute from './PrivateRoute';
 
 import Header from './Header';
 import BloomHeader from './BloomHeader';
-import Login from './Login';
 import View from './View';
+import Login from './Login';
 import Logout from './Logout';
 
 import styled from 'styled-components';
@@ -26,7 +26,7 @@ const App = () => {
           <Redirect to="/"/>
         </Route> 
 
-        <Route path="/view" component={View}/>
+        <PrivateRoute path="/view" component={View}/>
 
         <PrivateRoute path="/logout" component={Logout}/> 
 

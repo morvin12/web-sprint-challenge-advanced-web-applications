@@ -45,16 +45,16 @@ const Login = () => {
                 <FormGroup>
                     <Label>Username:</Label>
                     <Input
-                        name="username"
                         id="username"
+                        name="username"
                         onChange={handleChange}
                     />
                 </FormGroup>
                 <FormGroup>
                     <Label>Password:</Label>
                     <Input
-                        name="password"
                         id="password"
+                        name="password"
                         onChange={handleChange}
                     />
                 </FormGroup>
