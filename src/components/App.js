@@ -5,6 +5,9 @@ import styled from 'styled-components';
 import Header from './Header';
 import BloomHeader from './BloomHeader';
 import Login from './Login';
+import View from './View';
+import Logout from './Logout';
+
 
 const App = () => {
   return (
@@ -14,7 +17,11 @@ const App = () => {
       <RouteContainer>
         <Route exact path="/">
           <Login/>
-        </Route>          
+        </Route>
+        <Route path="/login">
+        </Route>  
+        <Route path="/view" component={View}/>
+        <Route path="/logout" component={Logout}/>      
       </RouteContainer>
     </AppContainer>
   )
