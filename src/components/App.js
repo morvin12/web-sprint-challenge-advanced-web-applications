@@ -19,11 +19,11 @@ const App = () => {
       <RouteContainer>
 
         <Route exact path="/">
-          <Login/>
+          <Redirect to="/login"/>
         </Route>
 
         <Route path="/login">
-          <Redirect to="/"/>
+          <Login/>
         </Route> 
 
         <PrivateRoute path="/view" component={View}/>
