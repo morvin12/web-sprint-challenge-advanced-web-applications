@@ -10,22 +10,20 @@ const article = {
     id:"",
     headline:"test headline",
     author:"test author",
-    summary:"",
+    summary:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac diam quam. Curabitur non magna consectetur, posuere sem ut, volutpat neque. Aenean dictum mauris neque, a faucibus tellus rutrum pulvinar.",
     body:"",
     image:1,
-    createdOn: Date.now()
-    
+    createdOn: Date.now()   
 }
 
-const articleNoAuthor = {
+const noAuthor = {
     id:"",
     headline:"test headline",
     author:"",
     summary:"",
     body:"",
     image:1,
-    createdOn: Date.now()
-    
+    createdOn: Date.now() 
 }
 
 test('renders component without errors', ()=> {
@@ -37,15 +35,18 @@ test('renders headline, author from the article when passed in through props', (
 
     const headline = screen.getByTestId(/headline/i);
     const author = screen.getByTestId(/author/i);
+    const summary = screen.getByTestId('summary');
    
     expect(headline).toBeInTheDocument();
     expect(author).toBeInTheDocument();
+    expect(summary).toBeInTheDocument();
     
 
 });
 
 test('renders "Associated Press" when no author is given', ()=> {
-    render(<Article article={articleNoAuthor}/>);
+    render(<Article article={noAuthor}/>);
+
     const author = screen.queryByTestId(/author/i);
     
     expect(author).toBeInTheDocument(/Associated Press/i);
@@ -53,7 +54,8 @@ test('renders "Associated Press" when no author is given', ()=> {
 
 test('executes handleDelete when the delete button is pressed', ()=> {
     const handleDelete = jest.fn();
-    render(<Article article={articleNoAuthor} handleDelete={handleDelete}/>);
+    
+    render(<Article article={noAuthor} handleDelete={handleDelete}/>);
     
     const deleteButton = screen.queryByTestId('deleteButton');
     userEvent.click(deleteButton);
